@@ -1,0 +1,67 @@
+syntax = "v2"
+
+// 获取一条流水号
+type (
+	GetTaskSnRes{
+		TaskSn string `json:"TaskSn,optional"` // 流水号
+		IsProgress bool `json:"IsProgress,optional"` // 是否是正在生成中的
+	}
+)
+
+// 获取预览生成的视频列表
+type (
+	GetTaskVideoListReq{
+		TaskSn string `form:"taskSn"` // 流水号
+	}
+	GetTaskVideoListData{
+		UserTemplateId int64 `json:"userTemplateId"` // 用户使用的模板，批量生成时使用
+		VideoUrl string `json:"videoUrl"`// 视频url
+		CoverUrl string `json:"coverUrl"` //封面url
+		Size int64 `json:"size"` // 大小
+		Duration int64 `json:"duration"` // 视频长度
+	}
+	GetTaskVideoListRes{
+		TaskSn string `json:"taskSn"` // taskSn
+		alsoCount int32 `json:"IsProgress,optional"` // 还剩多少条
+		changeCount int32 `json:"NuLimit,optional"` // 换一个可以换的次数
+		isChange bool `json:"NuLimit,optional"` // 是否有正在生成中
+		BatchNumber int32 `json:"batchNumber""` // 批量生成最大条数
+		data GetTaskVideoListData `json:"NuLimit,optional"` // list
+	}
+)
+
+// 获取视频生成进度
+type (
+	GetTaskVideoStatusReq{
+		TaskSn string `json:"TaskSn,optional"` // 流水号
+	}
+	GetTaskVideoStatusRes{
+		TaskSn string `json:"TaskSn,optional"` // 流水号
+		Status int32 `json:"status,optional"` // 生成状态 1已发起视频生成 2处理中 3处理完成成功 4处理完成失败 5部分成功部分失败 6任务不存在
+		VideoCount int32 `json:"videoCount,optional"` // 生成视频数量
+		SuccessCount int32 `json:"successCount,optional"` // 成功数量
+	}
+)
+
+@server (
+	group: task
+	prefix: /api
+	jwt: Auth
+	middleware: AuthToken
+)
+
+
+service apiClipFilm {
+	@doc "获取一条流水号"
+	@handler GetTaskSn
+	get /task/getTaskSn returns (GetTaskSnRes)
+
+	@doc "获取预览生成的视频列表"
+	@handler GetTaskVideoList
+	get /task/getTaskVideoList (GetTaskVideoListReq) returns (GetTaskVideoListRes)
+
+	@doc "获取视频生成进度"
+	@handler GetTaskVideoStatus
+	get /task/getTaskVideoStatus (GetTaskVideoStatusReq) returns (GetTaskVideoStatusRes)
+}
+

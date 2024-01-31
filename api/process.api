@@ -1,0 +1,103 @@
+syntax = "v2"
+
+// 预览生成参数
+type (
+	VideoPreviewReq{
+		TaskSn string `form:"taskSn"` // 生成视频任务流水号
+		VideoType int32 `form:"videoType"`  // 视频生成类型，默认1， 1ai生成，2固定文案，3无文案
+		TemplateId int64 `form:"templateId,optional"` // 模板标签id
+		IsSellingPoint int64 `form:"isSellingPoint,optional"` // 是否生成花字卖点 1生成 2不生成
+		VideoIds []int64 `form:"videoIds"` // 视频ids
+		BgmIds []int64 `form:"bgmIds"` // 背景音乐ids
+		CopyWritingIds []int64 `form:"copyWritingIds"` // 脚本ids
+		SellingPointIds []int64 `form:"sellingPointIds"` // 自定义卖点文案ids
+		RegularCopyWritingIds []int64 `form:"regularCopyWritingIds"` // 固定文案ids
+	}
+	VideoPreviewRes{
+		status int32 `json:"status"` // 返回状态 1成功
+	}
+)
+
+// 换一个参数
+type (
+	VideoChangeReq{
+		TaskSn string `form:"taskSn"` // 生成视频任务流水号
+	}
+	VideoChangeRes{
+		status int32 `json:"status"` // 返回状态 1成功
+	}
+)
+
+// 批量生成参数
+type (
+	VideoBatchReq{
+		TaskSn string `form:"taskSn"` // 生成视频任务流水号
+		UserTemplateId int64 `form:"userTemplateId"` // 用户模板id
+		LibraryId int64 `form:"libraryId"` // 成品库id
+		Number int64 `form:"number"` // 生成数量
+	}
+	VideoBatchRes{
+		status int32 `json:"status"` // 返回状态 1成功
+	}
+)
+
+
+@server (
+	group: process
+	prefix: /api
+	jwt: Auth
+	middleware: AuthToken
+)
+
+service apiClipFilm {
+	@doc "预览生成"
+	@handler VideoPreview
+	get /process/preview (VideoPreviewReq) returns (VideoPreviewRes)
+
+	@doc "换一个生成"
+	@handler VideoChange
+	get /process/change (VideoChangeReq) returns (VideoChangeRes)
+
+	@doc "批量生成"
+	@handler VideoBatch
+	get /process/batch (VideoBatchReq)  returns (VideoBatchRes)
+}
+
+
+@server (
+	group: process
+	prefix: /api
+)
+
+
+service apiClipFilm {
+	@doc "ali合成回调"
+	@handler AliVideoCallBack
+	get /process/aliVideoCallBack (AliVideoCallBackReq) returns (AliVideoCallBackRes)
+}
+
+// 批量生成参数
+type (
+	// 视频剪辑合成回调操作数据库请求参数消息体
+	CallbackMessageBody {
+		Status string  `json:"status"` // 任务状态
+		MediaURL string `json:"mediaUrl"` // 云剪辑成片地址
+		MediaId string  `json:"mediaId"` // 云剪辑成片媒资ID
+		ProjectId string `json:"projectId"` // 云剪辑工程ID
+		ErrorCode string  `json:"errorCode"` // 云剪辑错误码
+		ErrorMessage string `json:"errorMessage"` // 云剪辑错误信息
+		JobId string  `json:"jobId"` // 云剪辑任务ID
+		EventTime string `json:"eventTime"`
+		EventType string  `json:"eventType"`
+	}
+	AliVideoCallBackReq{
+		EventType string `json:"eventType"` // 事件类型
+		UserId int64 `json:"userId"` // 用户ID
+		EventTime string `json:"eventTime"` // 事件产生时间（UTC时间），格式为yyyy-MM-ddTHH:mm:ssZ
+		MessageBody CallbackMessageBody `json:"messageBody"` // 消息体
+	}
+	AliVideoCallBackRes{
+		Status bool `json:"status"` // 视频剪辑合成回调操作数据库响应
+		ErrorMessage string `json:"status"` // 视频剪辑合成回调操作数据库响应信息
+	}
+)

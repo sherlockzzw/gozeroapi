@@ -1,0 +1,29 @@
+syntax = "v2"
+
+// 获取一条流水号
+type (
+	ApiTemplateListData{
+		   Id int64 `json:"id,optional"` // 模板id 单次请求传入
+		   Name string `json:"name,optional"` // 模版名称
+	}
+	GetTemplateListRes{
+		Data ApiTemplateListData `json:"TaskSn,optional"` // 流水号
+		IsSellingPoint int32 `json:"IsProgress,optional"` // 0未知 1生成 2不生成
+	}
+)
+
+
+@server (
+	group: template
+	prefix: /api
+	jwt: Auth
+	middleware: AuthToken
+)
+
+
+service apiClipFilm {
+	@doc "获取标签模板列表"
+	@handler GetTemplateList
+	get /template/list returns (GetTemplateListRes)
+}
+
