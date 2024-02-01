@@ -3,7 +3,7 @@ module codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm
 go 1.20
 
 require (
-	codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/commonx v1.0.13
+	codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/commonx v1.0.14
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/zeromicro/go-zero v1.6.1
 	go.etcd.io/etcd/client/v3 v3.5.11
@@ -19,6 +19,7 @@ require (
 	github.com/fatih/color v1.16.0 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/go-swagger/go-swagger v0.30.5 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect

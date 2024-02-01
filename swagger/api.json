@@ -1,0 +1,899 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/bgm/bgm/class/list": {
+      "get": {
+        "summary": "获取bgm类型列表",
+        "operationId": "GetBgmClassList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBgmClassListRes"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "template"
+        ]
+      }
+    },
+    "/api/bgm/bgm/list": {
+      "get": {
+        "summary": "获取bgm列表",
+        "operationId": "GetBgmList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBgmListRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "classId",
+            "description": " 分类id，不传获取所有分类的",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "description": " 分页，默认第一页",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "template"
+        ]
+      }
+    },
+    "/api/process/aliVideoCallBack": {
+      "get": {
+        "summary": "ali合成回调",
+        "operationId": "AliVideoCallBack",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AliVideoCallBackRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "eventType",
+            "description": " 事件类型",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "description": " 用户ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "eventTime",
+            "description": " 事件产生时间（UTC时间），格式为yyyy-MM-ddTHH:mm:ssZ",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "messageBody",
+            "description": " 消息体",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "process"
+        ]
+      }
+    },
+    "/api/process/batch": {
+      "get": {
+        "summary": "批量生成",
+        "operationId": "VideoBatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VideoBatchRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskSn",
+            "description": " 生成视频任务流水号",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userTemplateId",
+            "description": " 用户模板id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "libraryId",
+            "description": " 成品库id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "number",
+            "description": " 生成数量",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "process"
+        ]
+      }
+    },
+    "/api/process/change": {
+      "get": {
+        "summary": "换一个生成",
+        "operationId": "VideoChange",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VideoChangeRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskSn",
+            "description": " 生成视频任务流水号",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "process"
+        ]
+      }
+    },
+    "/api/process/preview": {
+      "get": {
+        "summary": "预览生成",
+        "operationId": "VideoPreview",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/VideoPreviewRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskSn",
+            "description": " 生成视频任务流水号",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "videoType",
+            "description": " 视频生成类型，默认1， 1ai生成，2固定文案，3无文案",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "templateId",
+            "description": " 模板标签id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "isSellingPoint",
+            "description": " 是否生成花字卖点 1生成 2不生成",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "videoIds",
+            "description": " 视频ids",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "bgmIds",
+            "description": " 背景音乐ids",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "copyWritingIds",
+            "description": " 脚本ids",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "sellingPointIds",
+            "description": " 自定义卖点文案ids",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "regularCopyWritingIds",
+            "description": " 固定文案ids",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "process"
+        ]
+      }
+    },
+    "/api/task/getTaskSn": {
+      "get": {
+        "summary": "获取一条流水号",
+        "operationId": "GetTaskSn",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTaskSnRes"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "task"
+        ]
+      }
+    },
+    "/api/task/getTaskVideoList": {
+      "get": {
+        "summary": "获取预览生成的视频列表",
+        "operationId": "GetTaskVideoList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTaskVideoListRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "taskSn",
+            "description": " 流水号",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "task"
+        ]
+      }
+    },
+    "/api/task/getTaskVideoStatus": {
+      "get": {
+        "summary": "获取视频生成进度",
+        "operationId": "GetTaskVideoStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTaskVideoStatusRes"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "TaskSn",
+            "description": " 流水号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "task"
+        ]
+      }
+    },
+    "/api/template/list": {
+      "get": {
+        "summary": "获取标签模板列表",
+        "operationId": "GetTemplateList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTemplateListRes"
+            }
+          }
+        },
+        "requestBody": {},
+        "tags": [
+          "template"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AliVideoCallBackReq": {
+      "type": "object",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "description": " 事件类型"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户ID"
+        },
+        "eventTime": {
+          "type": "string",
+          "description": " 事件产生时间（UTC时间），格式为yyyy-MM-ddTHH:mm:ssZ"
+        },
+        "messageBody": {
+          "$ref": "#/definitions/CallbackMessageBody",
+          "description": " 消息体"
+        }
+      },
+      "title": "AliVideoCallBackReq",
+      "required": [
+        "eventType",
+        "userId",
+        "eventTime",
+        "messageBody"
+      ]
+    },
+    "AliVideoCallBackRes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 视频剪辑合成回调操作数据库响应"
+        },
+        "status": {
+          "type": "string",
+          "description": " 视频剪辑合成回调操作数据库响应信息"
+        }
+      },
+      "title": "AliVideoCallBackRes",
+      "required": [
+        "status"
+      ]
+    },
+    "ApiTemplateListData": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 模板id 单次请求传入"
+        },
+        "name": {
+          "type": "string",
+          "description": " 模版名称"
+        }
+      },
+      "title": "ApiTemplateListData"
+    },
+    "BgmClassList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": " bgmid"
+        },
+        "name": {
+          "type": "string",
+          "description": " bgm分类名称"
+        }
+      },
+      "title": "BgmClassList",
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "CallbackMessageBody": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": " 任务状态"
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": " 云剪辑成片地址"
+        },
+        "mediaId": {
+          "type": "string",
+          "description": " 云剪辑成片媒资ID"
+        },
+        "projectId": {
+          "type": "string",
+          "description": " 云剪辑工程ID"
+        },
+        "errorCode": {
+          "type": "string",
+          "description": " 云剪辑错误码"
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": " 云剪辑错误信息"
+        },
+        "jobId": {
+          "type": "string",
+          "description": " 云剪辑任务ID"
+        },
+        "eventTime": {
+          "type": "string"
+        },
+        "eventType": {
+          "type": "string"
+        }
+      },
+      "title": "CallbackMessageBody",
+      "required": [
+        "status",
+        "mediaUrl",
+        "mediaId",
+        "projectId",
+        "errorCode",
+        "errorMessage",
+        "jobId",
+        "eventTime",
+        "eventType"
+      ]
+    },
+    "GetBgmClassListRes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/BgmClassList",
+          "description": " list"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " \t总数"
+        }
+      },
+      "title": "GetBgmClassListRes",
+      "required": [
+        "data",
+        "count"
+      ]
+    },
+    "GetBgmListReq": {
+      "type": "object",
+      "properties": {
+        "classId": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 分类id，不传获取所有分类的"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 分页，默认第一页"
+        }
+      },
+      "title": "GetBgmListReq",
+      "required": [
+        "classId",
+        "page"
+      ]
+    },
+    "GetBgmListRes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/BgmClassList",
+          "description": " list"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": " \t总数"
+        }
+      },
+      "title": "GetBgmListRes",
+      "required": [
+        "data",
+        "count"
+      ]
+    },
+    "GetTaskSnRes": {
+      "type": "object",
+      "properties": {
+        "TaskSn": {
+          "type": "string",
+          "description": " 流水号"
+        },
+        "IsProgress": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否是正在生成中的"
+        }
+      },
+      "title": "GetTaskSnRes"
+    },
+    "GetTaskVideoListData": {
+      "type": "object",
+      "properties": {
+        "userTemplateId": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户使用的模板，批量生成时使用"
+        },
+        "videoUrl": {
+          "type": "string",
+          "description": " 视频url"
+        },
+        "coverUrl": {
+          "type": "string",
+          "description": "封面url"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 大小"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 视频长度"
+        }
+      },
+      "title": "GetTaskVideoListData",
+      "required": [
+        "userTemplateId",
+        "videoUrl",
+        "coverUrl",
+        "size",
+        "duration"
+      ]
+    },
+    "GetTaskVideoListReq": {
+      "type": "object",
+      "properties": {
+        "taskSn": {
+          "type": "string",
+          "description": " 流水号"
+        }
+      },
+      "title": "GetTaskVideoListReq",
+      "required": [
+        "taskSn"
+      ]
+    },
+    "GetTaskVideoListRes": {
+      "type": "object",
+      "properties": {
+        "taskSn": {
+          "type": "string",
+          "description": " taskSn"
+        },
+        "IsProgress": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 还剩多少条"
+        },
+        "NuLimit": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 换一个可以换的次数"
+        },
+        "NuLimit": {
+          "type": "boolean",
+          "format": "boolean",
+          "description": " 是否有正在生成中"
+        },
+        "batchNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 批量生成最大条数"
+        },
+        "NuLimit": {
+          "$ref": "#/definitions/GetTaskVideoListData",
+          "description": " list"
+        }
+      },
+      "title": "GetTaskVideoListRes",
+      "required": [
+        "taskSn",
+        "batchNumber"
+      ]
+    },
+    "GetTaskVideoStatusReq": {
+      "type": "object",
+      "properties": {
+        "TaskSn": {
+          "type": "string",
+          "description": " 流水号"
+        }
+      },
+      "title": "GetTaskVideoStatusReq"
+    },
+    "GetTaskVideoStatusRes": {
+      "type": "object",
+      "properties": {
+        "TaskSn": {
+          "type": "string",
+          "description": " 流水号"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 生成状态 1已发起视频生成 2处理中 3处理完成成功 4处理完成失败 5部分成功部分失败 6任务不存在"
+        },
+        "videoCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 生成视频数量"
+        },
+        "successCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 成功数量"
+        }
+      },
+      "title": "GetTaskVideoStatusRes"
+    },
+    "GetTemplateListRes": {
+      "type": "object",
+      "properties": {
+        "TaskSn": {
+          "$ref": "#/definitions/ApiTemplateListData",
+          "description": " 流水号"
+        },
+        "IsProgress": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 0未知 1生成 2不生成"
+        }
+      },
+      "title": "GetTemplateListRes"
+    },
+    "VideoBatchReq": {
+      "type": "object",
+      "properties": {
+        "taskSn": {
+          "type": "string",
+          "description": " 生成视频任务流水号"
+        },
+        "userTemplateId": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 用户模板id"
+        },
+        "libraryId": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 成品库id"
+        },
+        "number": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 生成数量"
+        }
+      },
+      "title": "VideoBatchReq",
+      "required": [
+        "taskSn",
+        "userTemplateId",
+        "libraryId",
+        "number"
+      ]
+    },
+    "VideoBatchRes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 返回状态 1成功"
+        }
+      },
+      "title": "VideoBatchRes",
+      "required": [
+        "status"
+      ]
+    },
+    "VideoChangeReq": {
+      "type": "object",
+      "properties": {
+        "taskSn": {
+          "type": "string",
+          "description": " 生成视频任务流水号"
+        }
+      },
+      "title": "VideoChangeReq",
+      "required": [
+        "taskSn"
+      ]
+    },
+    "VideoChangeRes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 返回状态 1成功"
+        }
+      },
+      "title": "VideoChangeRes",
+      "required": [
+        "status"
+      ]
+    },
+    "VideoPreviewReq": {
+      "type": "object",
+      "properties": {
+        "taskSn": {
+          "type": "string",
+          "description": " 生成视频任务流水号"
+        },
+        "videoType": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 视频生成类型，默认1， 1ai生成，2固定文案，3无文案"
+        },
+        "templateId": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 模板标签id"
+        },
+        "isSellingPoint": {
+          "type": "integer",
+          "format": "int64",
+          "description": " 是否生成花字卖点 1生成 2不生成"
+        },
+        "videoIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 视频ids"
+        },
+        "bgmIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 背景音乐ids"
+        },
+        "copyWritingIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 脚本ids"
+        },
+        "sellingPointIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 自定义卖点文案ids"
+        },
+        "regularCopyWritingIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": " 固定文案ids"
+        }
+      },
+      "title": "VideoPreviewReq",
+      "required": [
+        "taskSn",
+        "videoType",
+        "videoIds",
+        "bgmIds",
+        "copyWritingIds",
+        "sellingPointIds",
+        "regularCopyWritingIds"
+      ]
+    },
+    "VideoPreviewRes": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": " 返回状态 1成功"
+        }
+      },
+      "title": "VideoPreviewRes",
+      "required": [
+        "status"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

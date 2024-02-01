@@ -20,7 +20,6 @@ goctl api go -api ./run.api -dir ../
 goctl api go -api ./user.api -dir ../
 ```
 
-
 ## 响应规范
 
 1. 不能把报错信息响应到前端
@@ -35,6 +34,14 @@ result.ResultSuccess(r.Context(), w, 123)
 # 错误
 result.ResultFail(r.Context(), w, result.Error, err)
 ```
+
+## go-swagger
+
+```shell
+cd api
+goctl api plugin -plugin goctl-swagger="swagger -filename api.json" -api run.api -dir ../swagger
+```
+
 
 ## 文档
 
