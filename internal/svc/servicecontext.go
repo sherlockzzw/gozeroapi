@@ -17,6 +17,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	config.RegisterEtcd(context.Background(), &c)
 	return &ServiceContext{
 		Config:    c,
-		AuthToken: middleware.NewAuthTokenMiddleware(c, config.RedisClient).Handle,
+		AuthToken: middleware.NewAuthTokenMiddleware(c).Handle,
 	}
 }
