@@ -33,7 +33,8 @@ func RegisterEtcd(ctx context.Context, config *Config) {
 	if err != nil {
 		panic(err)
 	}
-
+	status, err := EtcdClient.Status(ctx, config.Etcd.Hosts[0])
+	logx.Infof("etcd:%+v", *status)
 	logx.WithContext(ctx).Info("successfully connect etcd client")
 }
 
