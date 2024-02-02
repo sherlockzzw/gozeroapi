@@ -12,4 +12,4 @@ COPY --from=builder /code/etc /server/code/etc
 
 WORKDIR /server/code
 
-EXPOSE 8000
+EXPOSE 10002
