@@ -72,7 +72,7 @@ type GetTaskVideoListRes struct {
 	AlsoCount   int32                `json:"IsProgress,optional"` // 还剩多少条
 	ChangeCount int32                `json:"NuLimit,optional"`    // 换一个可以换的次数
 	IsChange    bool                 `json:"NuLimit,optional"`    // 是否有正在生成中
-	BatchNumber int32                `json:"batchNumber""`        // 批量生成最大条数
+	BatchNumber int32                `json:"batchNumber"`         // 批量生成最大条数
 	Data        GetTaskVideoListData `json:"NuLimit,optional"`    // list
 }
 

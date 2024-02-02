@@ -18,7 +18,7 @@ func NewAuthTokenMiddleware(c config.Config) *AuthTokenMiddleware {
 
 func (m *AuthTokenMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		headers, code, err := result.New(r, m.Config.Auth.AccessExpire)
+		headers, code, err := result.New(r)
 		if err != nil {
 			result.ResultFail(r.Context(), w, code, err)
 			return
@@ -29,7 +29,6 @@ func (m *AuthTokenMiddleware) Handle(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 		next(w, r)
-		w.Header()
 		token, checkAtCode, err := headers.CheckAccessExpireTime(m.Config.Auth.AccessSecret, m.Config.Auth.AccessExpire)
 		if err != nil {
 			result.ResultFail(r.Context(), w, checkAtCode, err)
