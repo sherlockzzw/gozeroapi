@@ -39,6 +39,7 @@ func getRedis(config Config) (redisX *RedisX) {
 		panic(err)
 	}
 	redisX = &RedisX{}
+	logx.Infof("test:%+v", redisResp)
 	if err = json.Unmarshal(redisResp.Kvs[0].Value, redisX); err != nil {
 		panic(err)
 	}
