@@ -111,7 +111,7 @@ func watchRedis(config Config, wg *sync.WaitGroup) {
 	}()
 }
 
-func initRedis(redisX *RedisX) {
+func initRedis(redisX *RedisX) *redis.Client {
 	RedisClient = redis.NewClient(&redis.Options{
 		Username: redisX.UserName,
 		Addr:     redisX.Addr,
@@ -119,9 +119,16 @@ func initRedis(redisX *RedisX) {
 		DB:       redisX.Db,       // 默认数据库
 	})
 	// 设置连接超时时间
+
 	_, err := RedisClient.Ping(context.Background()).Result()
 	if err != nil {
 		panic(err)
 	}
 	logx.Infof("successfully connect redis client")
+
+	return RedisClient
+}
+
+func RegisterRedisCli(config Config) *redis.Client {
+	return initRedis(getRedis(config))
 }
