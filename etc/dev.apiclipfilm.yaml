@@ -10,3 +10,5 @@ Etcd:
   Hosts:
     - 47.123.6.230:2379
   Key: dev.apiclipfilm.api
+Middlewares:
+  Log: false
