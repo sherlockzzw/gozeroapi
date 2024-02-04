@@ -34,7 +34,7 @@ type RedisX struct {
 }
 
 func getRedis(config Config) (redisX *RedisX) {
-	redisResp, err := EtcdClient.Get(context.Background(), config.RedisX)
+	redisResp, err := etcdClient.Get(context.Background(), config.RedisX)
 	if err != nil {
 		panic(err)
 	}

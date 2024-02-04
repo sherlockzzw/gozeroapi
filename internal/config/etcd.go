@@ -13,7 +13,7 @@ import (
 var (
 	configOnce  sync.Once
 	RedisClient *redis.Client
-	EtcdClient  *clientv3.Client
+	etcdClient  *clientv3.Client
 )
 
 type Server struct{}
@@ -26,19 +26,22 @@ func InItWatchEtcd(config Config) {
 
 func RegisterEtcd(ctx context.Context, config *Config) {
 	var err error
-	EtcdClient, err = clientv3.New(clientv3.Config{
+	etcdClient, err = clientv3.New(clientv3.Config{
 		Endpoints:   config.Etcd.Hosts,
 		DialTimeout: 5 * time.Second,
 	})
 	if err != nil {
 		panic(err)
 	}
+	if _, err = etcdClient.Get(ctx, "ping"); err != nil {
+		panic("failed connect etcd client")
+	}
 	logx.WithContext(ctx).Info("successfully connect etcd client")
 }
 
 func watchRedis(config Config, wg *sync.WaitGroup) {
 	defer wg.Done()
-	watchDBChan := EtcdClient.Watch(context.Background(), config.RedisX)
+	watchDBChan := etcdClient.Watch(context.Background(), config.RedisX)
 	wg.Add(1)
 	go func() {
 		defer func() {
