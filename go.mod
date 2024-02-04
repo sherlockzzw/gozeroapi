@@ -3,7 +3,7 @@ module codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm
 go 1.20
 
 require (
-	codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/commonx v1.0.21
+	codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/commonx v1.0.22
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/zeromicro/go-zero v1.6.1
 	go.etcd.io/etcd/client/v3 v3.5.11

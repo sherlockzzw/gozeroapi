@@ -8,6 +8,7 @@ import (
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/commonx/result"
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logc"
 	"net/http"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -16,6 +17,8 @@ import (
 func main() {
 	flag.Parse()
 	c := config.Init()
+	var lc logc.LogConf
+	logc.MustSetup(lc)
 	errorMsg.New()
 	server := rest.MustNewServer(c.RestConf, rest.WithUnauthorizedCallback(func(w http.ResponseWriter, r *http.Request, err error) {
 		result.SystemError(r.Context(), w, err)
