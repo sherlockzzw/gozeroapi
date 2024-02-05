@@ -21,8 +21,7 @@ func main() {
 	logc.MustSetup(lc)
 	errorMsg.New()
 	server := rest.MustNewServer(c.RestConf, rest.WithUnauthorizedCallback(func(w http.ResponseWriter, r *http.Request, err error) {
-		//result.SystemError(r.Context(), w, err)
-		result.ResultFail(r.Context(), w, 200, err)
+		result.SystemError(r.Context(), w, err)
 	}))
 	defer server.Stop()
 
