@@ -29,6 +29,8 @@ func RegisterEtcd(ctx context.Context, config *Config) {
 	etcdClient, err = clientv3.New(clientv3.Config{
 		Endpoints:   config.Etcd.Hosts,
 		DialTimeout: 5 * time.Second,
+		Username:    config.Etcd.User,
+		Password:    config.Etcd.Pass,
 	})
 	if err != nil {
 		panic(err)

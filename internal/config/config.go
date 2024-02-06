@@ -22,6 +22,8 @@ type Config struct {
 	Etcd struct {
 		Hosts []string `json:"hosts"`
 		Key   string   `json:"key"`
+		User  string   `json:"user"`
+		Pass  string   `json:"pass"`
 	}
 	RedisX string
 }
