@@ -4,15 +4,15 @@ ifeq ($(GOHOSTOS), windows)
 	#changed to use git-bash.exe to run find cli or other cli friendly, caused of every developer has a Git.
 	#Git_Bash= $(subst cmd\,bin\bash.exe,$(dir $(shell where git)))
 	Git_Bash=$(subst \,/,$(subst cmd\,bin\bash.exe,$(dir $(shell where git))))
-	API_PROTO_FILES=$(shell $(Git_Bash) -c "find rpc -name *.proto")
+	API_PROTO_FILES=$(shell $(Git_Bash) -c "find rpc -name *.api")
 else
-	API_PROTO_FILES=$(shell find . -name "*.proto")
+	API_PROTO_FILES=$(shell find . -name "*.api")
 endif
 
-api:
+proto:
 	cd api
-	goctl api go -api ./run.api -dir ../
-	goctl api plugin -plugin goctl-swagger="swagger -filename api.json" -api run.api -dir ../swagger
+	goctl api go -api ./api/run.api -dir ./
+	goctl api plugin -plugin goctl-swagger="swagger -filename api.json" -api ./api/run.api -dir ./swagger
 
 
 

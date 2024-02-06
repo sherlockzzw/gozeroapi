@@ -67,7 +67,7 @@ func Init() (config *Config) {
 				env := os.Getenv("environ")
 				switch env {
 				case service.ProMode:
-					filePath, err = filepath.Abs("etc/release.apiclipfilm.yaml")
+					filePath, err = filepath.Abs("etc/apiclipfilm.yaml")
 					if err != nil {
 						panic(err)
 					}
