@@ -1,0 +1,37 @@
+syntax = "v2"
+
+// 获取bgm类型列表
+type (
+    GetUserListReq{
+        Page int64 `form:"page,default=1,range=(0:]"` // 分页，默认第一页
+        PageSize int64 `form:"pageSize,default=10,range=(0:]"` // 分页查询条数
+    }
+    UserList{
+        Id int64 `form:"id"` // id
+        Uuid string `form:"uuid"` // uuid
+        Mobile string `form:"mobile"` // 手机号
+        Email string `form:"email"`//邮箱
+        State int64 `from:"state"`//状态
+    }
+    GetBgmClassListRes{
+        List []UserList `json:"list"` // list
+    }
+)
+
+
+
+@server (
+    group: bgm
+    prefix: /api
+    jwt: Auth
+    middleware: AuthToken
+)
+
+
+service apiClipFilm {
+
+    @doc "获取user列表"
+    @handler GetUserList
+    get /user/list (GetUserListReq) returns (GetBgmClassListRes)
+}
+
