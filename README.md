@@ -14,7 +14,7 @@
 4. 执行命令
 ```shell
 # 构造所有的服务
-goctl api go -api ./api/run.api -dir ../
+goctl api go -api ./api/run.api -dir ./
 ```
 
 ## 响应规范

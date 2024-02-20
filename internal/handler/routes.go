@@ -4,11 +4,7 @@ package handler
 import (
 	"net/http"
 
-	bgm "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/bgm"
-	paperwork "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/paperwork"
-	process "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/process"
-	task "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/task"
-	template "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/template"
+	user "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/user"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -16,118 +12,13 @@ import (
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.AuthToken},
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/bgm/class/list",
-					Handler: bgm.GetBgmClassListHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/bgm/list",
-					Handler: bgm.GetBgmListHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-		rest.WithPrefix("/api"),
-	)
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.AuthToken},
-			[]rest.Route{
-				{
-					Method:  http.MethodPost,
-					Path:    "/paperwork/add",
-					Handler: paperwork.AddPaperworkHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/paperwork/list",
-					Handler: paperwork.GetPaperworkHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-		rest.WithPrefix("/api"),
-	)
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.AuthToken},
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/process/batch",
-					Handler: process.VideoBatchHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/process/change",
-					Handler: process.VideoChangeHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/process/preview",
-					Handler: process.VideoPreviewHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-		rest.WithPrefix("/api"),
-	)
-
-	server.AddRoutes(
 		[]rest.Route{
 			{
 				Method:  http.MethodGet,
-				Path:    "/process/aliVideoCallBack",
-				Handler: process.AliVideoCallBackHandler(serverCtx),
+				Path:    "/user/list",
+				Handler: user.GetUserListHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/api"),
-	)
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.AuthToken},
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/task/getTaskSn",
-					Handler: task.GetTaskSnHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/task/getTaskVideoList",
-					Handler: task.GetTaskVideoListHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/task/getTaskVideoStatus",
-					Handler: task.GetTaskVideoStatusHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-		rest.WithPrefix("/api"),
-	)
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.AuthToken},
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/template/list",
-					Handler: template.GetTemplateListHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/api"),
 	)
 }

@@ -11,20 +11,21 @@ type (
         Uuid string `form:"uuid"` // uuid
         Mobile string `form:"mobile"` // 手机号
         Email string `form:"email"`//邮箱
-        State int64 `from:"state"`//状态
+        State int64 `form:"state"`//状态
+        Created_at int64 `form:"created_at"`//创建时间
+        Updated_at int64 `form:"updated_at"`//更新时间
     }
-    GetBgmClassListRes{
+    GetUserListRes{
         List []UserList `json:"list"` // list
     }
 )
 
 
-
 @server (
-    group: bgm
+    group: user
     prefix: /api
-    jwt: Auth
-    middleware: AuthToken
+//    jwt: Auth
+//    middleware: AuthToken
 )
 
 
@@ -32,6 +33,6 @@ service apiClipFilm {
 
     @doc "获取user列表"
     @handler GetUserList
-    get /user/list (GetUserListReq) returns (GetBgmClassListRes)
+    get /user/list (GetUserListReq) returns (GetUserListRes)
 }
 
