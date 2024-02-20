@@ -4,6 +4,8 @@ package handler
 import (
 	"net/http"
 
+	bgm "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/bgm"
+	paperwork "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/paperwork"
 	process "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/process"
 	task "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/task"
 	template "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/handler/template"
@@ -13,6 +15,46 @@ import (
 )
 
 func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.AuthToken},
+			[]rest.Route{
+				{
+					Method:  http.MethodGet,
+					Path:    "/bgm/class/list",
+					Handler: bgm.GetBgmClassListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/bgm/list",
+					Handler: bgm.GetBgmListHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/api"),
+	)
+
+	server.AddRoutes(
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.AuthToken},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/paperwork/add",
+					Handler: paperwork.AddPaperworkHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/paperwork/list",
+					Handler: paperwork.GetPaperworkHandler(serverCtx),
+				},
+			}...,
+		),
+		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
+		rest.WithPrefix("/api"),
+	)
+
 	server.AddRoutes(
 		rest.WithMiddlewares(
 			[]rest.Middleware{serverCtx.AuthToken},
@@ -82,26 +124,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Method:  http.MethodGet,
 					Path:    "/template/list",
 					Handler: template.GetTemplateListHandler(serverCtx),
-				},
-			}...,
-		),
-		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
-		rest.WithPrefix("/api"),
-	)
-
-	server.AddRoutes(
-		rest.WithMiddlewares(
-			[]rest.Middleware{serverCtx.AuthToken},
-			[]rest.Route{
-				{
-					Method:  http.MethodGet,
-					Path:    "/bgm/bgm/class/list",
-					Handler: template.GetBgmClassListHandler(serverCtx),
-				},
-				{
-					Method:  http.MethodGet,
-					Path:    "/bgm/bgm/list",
-					Handler: template.GetBgmListHandler(serverCtx),
 				},
 			}...,
 		),

@@ -1,9 +1,10 @@
-package template
+package bgm
 
 import (
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/commonx/result"
 	"net/http"
 
-	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/logic/template"
+	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/logic/bgm"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/svc"
 	"codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/apiClipFilm/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
@@ -17,12 +18,12 @@ func GetBgmListHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 			return
 		}
 
-		l := template.NewGetBgmListLogic(r.Context(), svcCtx)
+		l := bgm.NewGetBgmListLogic(r.Context(), svcCtx)
 		resp, err := l.GetBgmList(&req)
 		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+			result.ResultFail(r.Context(), w, result.ServerError, err)
 		} else {
-			httpx.OkJsonCtx(r.Context(), w, resp)
+			result.ResultSuccess(r.Context(), w, resp)
 		}
 	}
 }

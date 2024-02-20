@@ -13,11 +13,8 @@
 3. 新增接口根据官方文档或者现有的注释使用，注意⚠️：不是自己的不要动，执行后把handler和logic中的数据覆盖
 4. 执行命令
 ```shell
-cd api
 # 构造所有的服务
-goctl api go -api ./run.api -dir ../
-# 构造某一个服务
-goctl api go -api ./user.api -dir ../
+goctl api go -api ./api/run.api -dir ../
 ```
 
 ## 响应规范

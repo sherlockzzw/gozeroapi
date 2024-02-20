@@ -3,12 +3,12 @@ syntax = "v2"
 // 获取bgm类型列表
 type (
 	BgmClassList{
-		Id int64 `json:"id"` // bgmid
-		Name string `json:"name"` // bgm分类名称
+		Id int64 `form:"id"` // bgmid
+		Name string `form:"name"` // bgm分类名称
+		Sort int32 `form:"sort"` // 排序值
 	}
 	GetBgmClassListRes{
-		Data BgmClassList `json:"data"` // list
-		Count int64 `json:"count"` // 	总数
+		List []BgmClassList `json:"list"` // list
 	}
 )
 
@@ -16,17 +16,28 @@ type (
 type (
 	GetBgmListReq{
 		ClassId int64 `form:"classId"` // 分类id，不传获取所有分类的
-		Page int64 `json:"page"` // 分页，默认第一页
+		Page int64 `form:"page,default=1,range=(0:]"` // 分页，默认第一页
+		PageSize int64 `form:"pageSize,default=10,range=(0:]"` // 分页查询条数
+	}
+	BgmList{
+		Id int64 `json:"id"` // bgm分类id
+		Name string `json:"name"` // bgm名
+		BgmUrl string `json:"bgmUrl"` // bgm链接
+		ClassId int64  `json:"classId"` // 分类id
+		Sort int32  `json:"sort"` // 排序值
+		CoverUrl string `json:"coverUrl"` // 封面图链接
+		Duration int32  `json:"duration"` // 时长
 	}
 	GetBgmListRes{
-		Data BgmClassList `json:"data"` // list
-		Count int64 `json:"count"` // 	总数
+		List []BgmList `json:"list"` // list
+		Total int64 `json:"total"` // 总数
+		Page int64 `json:"page"` // 当前页
 	}
 )
 
 
 @server (
-	group: template
+	group: bgm
 	prefix: /api
 	jwt: Auth
 	middleware: AuthToken
@@ -36,10 +47,10 @@ type (
 service apiClipFilm {
 	@doc "获取bgm类型列表"
 	@handler GetBgmClassList
-	get /bgm/bgm/class/list returns (GetBgmClassListRes)
+	get /bgm/class/list returns (GetBgmClassListRes)
 
 	@doc "获取bgm列表"
 	@handler GetBgmList
-	get /bgm/bgm/list (GetBgmListReq) returns (GetBgmListRes)
+	get /bgm/list (GetBgmListReq) returns (GetBgmListRes)
 }
 

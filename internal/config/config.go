@@ -8,6 +8,7 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
 	"os"
 	"path/filepath"
 	"time"
@@ -25,7 +26,8 @@ type Config struct {
 		User  string   `json:"user"`
 		Pass  string   `json:"pass"`
 	}
-	RedisX string
+	RedisX          string
+	ClipFilmRpcConf zrpc.RpcClientConf
 }
 
 type RedisX struct {
@@ -67,7 +69,7 @@ func Init() (config *Config) {
 				env := os.Getenv("environ")
 				switch env {
 				case service.ProMode:
-					filePath, err = filepath.Abs("etc/apiclipfilm.yaml")
+					filePath, err = filepath.Abs("etc/release.apiclipfilm.yaml")
 					if err != nil {
 						panic(err)
 					}
@@ -77,7 +79,7 @@ func Init() (config *Config) {
 						panic(err)
 					}
 				default:
-					filePath, err = filepath.Abs("etc/dev.apiclipfilm.yaml")
+					filePath, err = filepath.Abs("etc/apiclipfilm.yaml")
 					if err != nil {
 						panic(err)
 					}

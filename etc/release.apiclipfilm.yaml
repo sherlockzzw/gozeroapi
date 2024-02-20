@@ -1,15 +1,15 @@
 Name: apiClipFilm
 Host: 0.0.0.0
-Port: 10002
-RedisX: dev.redis
+Port: 8000
+RedisX: release.redis
 Timeout: 10000 # 10s，api请求的响应超时时间，若超过10s还未返回则结束请求。该超时时间会被api层初始化的的context作为超时时间进行设置，若再新建一个context则不会被使用，而使用默认或自定义的超时时间
 Auth:
-  AccessSecret: dev11111111
-  AccessExpire: 86400 # 过期时间30天
+  AccessSecret: release11111111
+  AccessExpire: 86400 # 过期时间
 Etcd:
   Hosts:
     - qa-etcd.huabanshou.cn:2379
-  Key: dev.apiclipfilm.api
+  Key: release.apiclipfilm.api
   User: root
   Pass: admin
 #Middlewares:

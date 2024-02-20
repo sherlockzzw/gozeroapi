@@ -3,10 +3,10 @@ package errorMsg
 import "codeup.aliyun.com/64df1ec7dba61e96ebf612bf/jiandaoshou/commonx/result"
 
 const (
-	UserNot result.BusinessCode = 1000
+	ForbiddenWordError result.BusinessCode = 12001
 )
 
 func New() {
 	server := result.NewErrorServer()
-	server.Add(UserNot, "用户不存在", "user not")
+	server.Add(ForbiddenWordError, "输入文案包含违禁词", "user not")
 }

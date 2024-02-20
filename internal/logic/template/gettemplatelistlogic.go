@@ -25,12 +25,6 @@ func NewGetTemplateListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 
 func (l *GetTemplateListLogic) GetTemplateList() (resp *types.GetTemplateListRes, err error) {
 	// todo: add your logic here and delete this line
-	resp = &types.GetTemplateListRes{
-		Data: types.ApiTemplateListData{
-			Id:   1,
-			Name: "1",
-		},
-		IsSellingPoint: 1,
-	}
+
 	return
 }
